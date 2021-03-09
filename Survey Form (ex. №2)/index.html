@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="form-wrapper">
+    <div class="header">
+      <h1 id="title" class="text-center">SergiiMart Survey Form</h1>
+      <p id="description" class="description text-center">
+        Thank you for answering questions in the form. 
+      </p>
+    </div>
+    <form id="survey-form">
+      <div class="form-group">
+        <label id="name-label" for="name">First name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Enter your name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label id="name-label" for="name">Last name</label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          placeholder="Enter your name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label id="email-label" for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          placeholder="Enter your Email"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label id="number-label" for="number"
+          >Age<span class="clue">(optional)</span></label
+        >
+        <input
+          type="number"
+          name="age"
+          id="number"
+          min="10"
+          max="99"
+          class="form-control"
+          placeholder="Age"
+        />
+      </div>
+      <div class="form-group">
+        <p>Which option best describes your current role?</p>
+        <select id="dropdown" name="role" class="form-control" required>
+          <option disabled selected value>Select current role</option>
+          <option value="student">Student</option>
+          <option value="job">Full Time Job</option>
+          <option value="learner">Full Time Learner</option>
+          <option value="preferNo">Prefer not to say</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <p>Do you like Web design?</p>
+
+        <label
+          ><input
+            name="user-recommend"
+            value="not-sure"
+            type="radio"
+            class="input-radio"
+          />Not sure</label>
+
+        <label>
+          <input
+            name="user-recommend"
+            value="definitely"
+            type="radio"
+            class="input-radio"
+            checked
+          />Definitely</label>
+        <label>
+          <input
+            name="user-recommend"
+            value="maybe"
+            type="radio"
+            class="input-radio"
+          />Maybe</label>
+  
+      </div>
+  
+      <div class="form-group">
+        <p>
+         What CSS Design Tools you prefer?
+        </p>
+        <select id="most-like" name="mostLike" class="form-control" required>
+          <option disabled selected value style="background-color: rgb(68, 63, 63);">Select an option</option>
+          <option value="Bourbon">Bourbon</option>
+          <option value="PostCSS">PostCSS</option>
+          <option value="Scout App">Scout App</option>
+          <option value="Sierra Library">Sierra Library</option>
+          <option value="The Ultimate CSS Generator">The Ultimate CSS Generator</option>
+          <option value="CSS Menu Maker">CSS Menu Maker</option>
+          <option value="SassMeister">SassMeister</option>
+          <option value="SCSS Compiler">SCSS Compiler</option>
+          <option value="I'm using basic CSS!">I'm using basic CSS!</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <p>
+          What are thing you good at?
+        </p>
+  
+        <label
+          ><input
+            name="prefer"
+            value="front-end"
+            type="checkbox"
+            class="input-checkbox"
+          />Front-ends</label>
+        <label>
+          <input
+            name="prefer"
+            value="back-ends"
+            type="checkbox"
+            class="input-checkbox"
+          />Back-ends</label>
+        <label
+          ><input
+            name="prefer"
+            value="data-visualization"
+            type="checkbox"
+            class="input-checkbox"
+          />Data Visualization</label>
+        <label
+          ><input
+            name="prefer"
+            value="HTML"
+            type="checkbox"
+            class="input-checkbox"
+          />HTML</label>
+        <label
+          ><input
+            name="prefer"
+            value="CSS"
+            type="checkbox"
+            class="input-checkbox"
+          />CSS</label>
+        <label
+          ><input
+            name="prefer"
+            value="JavaScript"
+            type="checkbox"
+            class="input-checkbox"
+          />JavaScript</label>
+        <label
+          ><input
+            name="prefer"
+            value="Python"
+            type="checkbox"
+            class="input-checkbox"
+          />Python</label>
+        <label
+          ><input
+            name="prefer"
+            value="PHP"
+            type="checkbox"
+            class="input-checkbox"
+          />PHP</label>
+        <label
+          ><input
+            name="prefer"
+            value="JASON"
+            type="checkbox"
+            class="input-checkbox"
+          />JASON</label>
+        <label
+          ><input
+            name="prefer"
+            value="Nothing :*("
+            type="checkbox"
+            class="input-checkbox"
+          />Nothing :*(</label>
+    
+      </div>
+  
+      <div class="form-group">
+        <p>Any comments or suggestions?</p>
+        <textarea
+          id="comments"
+          class="input-textarea"
+          name="comment"
+          placeholder="Enter your comment here..."
+        ></textarea>
+      </div>
+  
+      <div class="form-group">
+        <button type="submit" id="submit" class="submit-button">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+
+
+</body>
+</html>
