@@ -4,9 +4,7 @@
   padding: 0;
 }
 
-#header {
-  position: fixed;
-}
+
 
 #nav-bar {
   display: flex;
