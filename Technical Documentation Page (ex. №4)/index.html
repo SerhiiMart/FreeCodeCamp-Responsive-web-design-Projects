@@ -15,15 +15,16 @@
           >HTTP authentication</a></li>
       <li><a class="nav-link" href="#The_general_HTTP_authentication_framework">The general HTTP authentication framework</a></li>
       <li>
-        <a class="nav-link" href="#Proxy_authentication">JavaScript and Java</a>
+        <a class="nav-link" href="#Proxy_authentication">Proxy authentication</a>
       </li>
-      <li><a class="nav-link" href="#Hello_world">Hello world</a></li>
-      <li><a class="nav-link" href="#Variables">Variables</a></li>
+      <li><a class="nav-link" href="#Access_forbidden">Access forbidden</a></li>
+      <li><a class="nav-link" href="#Authentication_of_cross-origin_images">Authentication of cross-origin images</a></li>
       <li>
-        <a class="nav-link" href="#Declaring_variables">Declaring variables</a>
+        <a class="nav-link" href="#Character_encoding_of_HTTP_authentication">Character encoding of HTTP authentication</a>
       </li>
-      <li><a class="nav-link" href="#Variable_scope">Variable scope</a></li>
-      <li><a class="nav-link" href="#Global_variables">Global variables</a></li>
+      <li><a class="nav-link" href="#WWW-Authenticate_and_Proxy-Authenticate_headers">WWW-Authenticate and Proxy-Authenticate headers</a></li>
+      <li><a class="nav-link" href="#Authorization_and_Proxy-Authorization_headers">Authorization and Proxy-Authorization headers</a></li>
+    
       <li><a class="nav-link" href="#Constants">Constants</a></li>
       <li><a class="nav-link" href="#Data_types">Data types</a></li>
       <li>
@@ -55,17 +56,82 @@
         <li>Usually a client will present a password prompt to the user and will then issue the request including the correct <code>Authorization</code> header.</li>
        </ol>
        
-       <p><img alt="A sequence diagram illustrating HTTP messages between a client and a server lifeline." src="./HTTP authentication - HTTP _ MDN_files/httpauth.png" title="Sequence Diagram of Client-server HTTP Authentication" width="710" height="335" loading="lazy"></p>
+       <p><img alt="A sequence diagram illustrating HTTP messages between a client and a server lifeline." src="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication/httpauth.png" title="Sequence Diagram of Client-server HTTP Authentication" width="710" height="335" loading="lazy"></p>
        <p>In the case of a "Basic" authentication like shown in the figure, the exchange <strong>must</strong> happen over an HTTPS (TLS) connection to be secure.</p>       
       </div>
     </section>
     <section id="Proxy_authentication" class="main-section"><header>Proxy authentication</header>
       <div class="container">
-
+        <p>The same challenge and response mechanism can be used for <em>proxy authentication</em>. As both resource authentication and proxy authentication can coexist, a different set of headers and status codes is needed. In the case of proxies, the challenging status code is <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407"><code>407</code></a> (Proxy Authentication Required), the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate"><code>Proxy-Authenticate</code></a> response header contains at least one challenge applicable to the proxy, and the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authorization"><code>Proxy-Authorization</code></a> request header is used for providing the credentials to the proxy server.</p>
       </div></section>
-    <section class="main-section"><div class="container"></div></section>
-    <section class="main-section"><div class="container"></div></section>
-    <section class="main-section"><div class="container"></div></section>
+    <section id="Access_forbidden" class="main-section"><header>Access forbidden</header>
+      <div class="container">
+        <p>If a (proxy) server receives valid credentials that are inadequate to access a given resource, the server should respond with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"><code>403</code></a> <code>Forbidden</code> status code. Unlike <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"><code>401</code></a> <code>Unauthorized</code> or <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407"><code>407</code></a> <code>Proxy Authentication Required</code>, authentication is impossible for this user.</p>
+      </div></section>
+    <section id="Authentication_of_cross-origin_images" class="main-section"><header>Authentication of cross-origin images</header>
+      <div class="container">
+        <p>A potential security hole recently been fixed by browsers is authentication of cross-site images. From <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/59">Firefox 59</a> onwards, image resources loaded from different origins to the current document are no longer able to trigger HTTP authentication dialogs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1423146" class="external" rel=" noopener">bug&nbsp;1423146</a>), preventing user credentials being stolen if attackers were able to embed an arbitrary image into a third-party page.</p>
+      </div></section>
+    <section id="Character_encoding_of_HTTP_authentication" class="main-section"><header>Character encoding of HTTP authentication</header>
+      <div class="container">
+        <p>Browsers use <code>utf-8</code> encoding for usernames and passwords.</p>
+
+<p>Firefox once used <code>ISO-8859-1</code>, but changed to <code>utf-8</code> for parity with other browsers and to avoid potential problems as described in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1419658" class="external" rel=" noopener">bug&nbsp;1419658</a>.</p>
+      </div></section>
+    <section id="WWW-Authenticate_and_Proxy-Authenticate_headers" class="main-section"><header>WWW-Authenticate and Proxy-Authenticate headers</header>
+      <div class="container">
+        <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate"><code>WWW-Authenticate</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate"><code>Proxy-Authenticate</code></a> response headers define the authentication method that should be used to gain access to a resource. They must specify which authentication scheme is used, so that the client that wishes to authorize knows how to provide the credentials.</p>
+
+<p>Here, <code>&lt;type&gt;</code> is the authentication scheme ("Basic" is the most common scheme and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme">introduced below</a>). The <em>realm</em> is used to describe the protected area or to indicate the scope of protection. This could be a message like "Access to the staging site" or similar, so that the user knows to which space they are trying to get access to.</p>
+      </div></section>
+    <section id="Authorization_and_Proxy-Authorization_headers" class="main-section"><header>Authorization and Proxy-Authorization headers</header>
+      <div class="container">
+
+        <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization"><code>Authorization</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authorization"><code>Proxy-Authorization</code></a> request headers contain the credentials to authenticate a user agent with a (proxy) server. Here, the <code>&lt;type&gt;</code> is needed again followed by the credentials, which can be encoded or encrypted depending on which authentication scheme is used.</p>
+      </div></section>
+    <section id="authentication_schemes" class="main-section"><header>Authentication schemes</header>
+      <div class="container">
+        <p>The general HTTP authentication framework is used by several authentication schemes. Schemes can differ in security strength and in their availability in client or server software.</p>
+
+<p>The most common authentication scheme is the "Basic" authentication scheme, which is introduced in more detail below. IANA maintains a <a class="external external-icon" href="https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml" rel=" noopener">list of authentication schemes</a>, but there are other schemes offered by host services, such as Amazon AWS. Common authentication schemes include:</p>
+
+<dl>
+ <dt><strong>Basic</strong></dt>
+ <dd>See <a href="https://tools.ietf.org/html/rfc7617" class="external" rel=" noopener">RFC 7617</a>, base64-encoded credentials. More information below.</dd>
+ <dt><strong>Bearer</strong></dt>
+ <dd>See <a href="https://tools.ietf.org/html/rfc6750" class="external" rel=" noopener">RFC 6750</a>, bearer tokens to access OAuth 2.0-protected resources</dd>
+ <dt><strong>Digest</strong></dt>
+ <dd>See <a href="https://tools.ietf.org/html/rfc7616" class="external" rel=" noopener">RFC 7616</a>, only md5 hashing is supported in Firefox, see <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=472823" class="external" rel=" noopener">bug&nbsp;472823</a> for SHA encryption support</dd>
+ <dt><strong>HOBA</strong></dt>
+ <dd>See <a href="https://tools.ietf.org/html/rfc7486" class="external" rel=" noopener">RFC 7486</a>, Section 3, <strong>H</strong>TTP <strong>O</strong>rigin-<strong>B</strong>ound <strong>A</strong>uthentication, digital-signature-based</dd>
+ <dt><strong>Mutual</strong></dt>
+ <dd>See <a href="https://tools.ietf.org/html/rfc8120" class="external" rel=" noopener">RFC 8120</a></dd>
+ <dt><strong>AWS4-HMAC-SHA256</strong></dt>
+ <dd>See <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html" class="external" rel=" noopener">AWS docs</a></dd>
+</dl></div>
+      </div></section>
+    <section id="Basic_authentication_scheme" class="main-section"><header>Basic authentication scheme</header>
+      <div class="container">
+        <p>The "Basic" HTTP authentication scheme is defined in <a href="https://tools.ietf.org/html/rfc7617" class="external" rel=" noopener">RFC 7617</a>, which transmits credentials as user ID/password pairs, encoded using base64.</p>
+      </div></section>
+      <h2>Security of basic authentication</h2><div class="container">
+      <p>As the user ID and password are passed over the network as clear text (it is base64 encoded, but base64 is a reversible encoding), the basic authentication scheme <strong>is not secure</strong>. HTTPS/TLS should be used with basic authentication. Without these additional security enhancements, basic authentication should not be used to protect sensitive or valuable information.</p>
+    </div>
+    <section id="Reference" class="main-section" >
+      <header>Reference</header>
+      <article>
+        <ul>
+          <li>
+            All the documentation in this page is taken from
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication"
+              target="_blank"
+              >MDN</a
+            >
+          </li>
+        </ul>
+      </article>
+    </section>
   </main>
 
   
