@@ -24,6 +24,7 @@
       </li>
       <li><a class="nav-link" href="#WWW-Authenticate_and_Proxy-Authenticate_headers">WWW-Authenticate and Proxy-Authenticate headers</a></li>
       <li><a class="nav-link" href="#Authorization_and_Proxy-Authorization_headers">Authorization and Proxy-Authorization headers</a></li>
+      <li><a class="nav-link" href="#Authentication_Schemes">Authentication schemes</a></li>
       <li><a class="nav-link" href="#Basic_authentication_scheme">Basic authentication scheme</a></li>
       <li><a class="nav-link last" href="#Reference">Reference</a></li>
     </ul>
@@ -56,33 +57,38 @@
     <section id="Access_forbidden" class="main-section"><header>Access forbidden</header>
       <div class="container">
         <p>If a (proxy) server receives valid credentials that are inadequate to access a given resource, the server should respond with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"><code>403</code></a> <code>Forbidden</code> status code. Unlike <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401"><code>401</code></a> <code>Unauthorized</code> or <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407"><code>407</code></a> <code>Proxy Authentication Required</code>, authentication is impossible for this user.</p>
-      </div></section>
-    <section id="Authentication_of_cross-origin_images" class="main-section"><header>Authentication of cross-origin images</header>
+      </div>
+    </section>
+    <section id="Authentication_of_cross-origin_images"class="main-section"><header>Authentication of cross-origin images</header>
       <div class="container">
         <p>A potential security hole recently been fixed by browsers is authentication of cross-site images. From <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Firefox/Releases/59">Firefox 59</a> onwards, image resources loaded from different origins to the current document are no longer able to trigger HTTP authentication dialogs (<a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1423146" class="external" rel=" noopener">bug&nbsp;1423146</a>), preventing user credentials being stolen if attackers were able to embed an arbitrary image into a third-party page.</p>
-      </div></section>
+      </div>
+    </section>
     <section id="Character_encoding_of_HTTP_authentication" class="main-section"><header>Character encoding of HTTP authentication</header>
       <div class="container">
         <p>Browsers use <code>utf-8</code> encoding for usernames and passwords.</p>
 
-<p>Firefox once used <code>ISO-8859-1</code>, but changed to <code>utf-8</code> for parity with other browsers and to avoid potential problems as described in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1419658" class="external" rel=" noopener">bug&nbsp;1419658</a>.</p>
-      </div></section>
+        <p>Firefox once used <code>ISO-8859-1</code>, but changed to <code>utf-8</code> for parity with other browsers and to avoid potential problems as described in <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1419658" class="external" rel=" noopener">bug&nbsp;1419658</a>.</p>
+      </div>
+    </section>
     <section id="WWW-Authenticate_and_Proxy-Authenticate_headers" class="main-section"><header>WWW-Authenticate and Proxy-Authenticate headers</header>
       <div class="container">
         <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/WWW-Authenticate"><code>WWW-Authenticate</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authenticate"><code>Proxy-Authenticate</code></a> response headers define the authentication method that should be used to gain access to a resource. They must specify which authentication scheme is used, so that the client that wishes to authorize knows how to provide the credentials.</p>
 
-<p>Here, <code>&lt;type&gt;</code> is the authentication scheme ("Basic" is the most common scheme and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme">introduced below</a>). The <em>realm</em> is used to describe the protected area or to indicate the scope of protection. This could be a message like "Access to the staging site" or similar, so that the user knows to which space they are trying to get access to.</p>
-      </div></section>
+      <p>Here, <code>&lt;type&gt;</code> is the authentication scheme ("Basic" is the most common scheme and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#basic_authentication_scheme">introduced below</a>). The <em>realm</em> is used to describe the protected area or to indicate the scope of protection. This could be a message like "Access to the staging site" or similar, so that the user knows to which space they are trying to get access to.</p>
+      </div>
+    </section>
     <section id="Authorization_and_Proxy-Authorization_headers" class="main-section"><header>Authorization and Proxy-Authorization headers</header>
       <div class="container">
 
         <p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization"><code>Authorization</code></a> and <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Proxy-Authorization"><code>Proxy-Authorization</code></a> request headers contain the credentials to authenticate a user agent with a (proxy) server. Here, the <code>&lt;type&gt;</code> is needed again followed by the credentials, which can be encoded or encrypted depending on which authentication scheme is used.</p>
-      </div></section>
-    <section id="authentication_schemes" class="main-section"><header>Authentication schemes</header>
+      </div>
+    </section>
+    <section id="Authentication_Schemes" class="main-section"><header>Authentication schemes</header>
       <div class="container">
         <p>The general HTTP authentication framework is used by several authentication schemes. Schemes can differ in security strength and in their availability in client or server software.</p>
 
-<p>The most common authentication scheme is the "Basic" authentication scheme, which is introduced in more detail below. IANA maintains a <a class="external external-icon" href="https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml" rel=" noopener">list of authentication schemes</a>, but there are other schemes offered by host services, such as Amazon AWS. Common authentication schemes include:</p>
+    <p>The most common authentication scheme is the "Basic" authentication scheme, which is introduced in more detail below. IANA maintains a <a class="external external-icon" href="https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml" rel=" noopener">list of authentication schemes</a>, but there are other schemes offered by host services, such as Amazon AWS. Common authentication schemes include:</p>
 
 <dl>
  <dt><strong>Basic</strong></dt>
@@ -97,27 +103,29 @@
  <dd>See <a href="https://tools.ietf.org/html/rfc8120" class="external" rel=" noopener">RFC 8120</a></dd>
  <dt><strong>AWS4-HMAC-SHA256</strong></dt>
  <dd>See <a href="http://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-auth-using-authorization-header.html" class="external" rel=" noopener">AWS docs</a></dd>
-</dl></div>
-      </div></section>
+</dl>
+      </div>
+    </section>
     <section id="Basic_authentication_scheme" class="main-section"><header>Basic authentication scheme</header>
       <div class="container">
         <p>The "Basic" HTTP authentication scheme is defined in <a href="https://tools.ietf.org/html/rfc7617" class="external" rel=" noopener">RFC 7617</a>, which transmits credentials as user ID/password pairs, encoded using base64.</p>
-      </div></section>
-      <h2>Security of basic authentication</h2><div class="container">
+      <h2>Security of basic authentication</h2>
       <p>As the user ID and password are passed over the network as clear text (it is base64 encoded, but base64 is a reversible encoding), the basic authentication scheme <strong>is not secure</strong>. HTTPS/TLS should be used with basic authentication. Without these additional security enhancements, basic authentication should not be used to protect sensitive or valuable information.</p>
     </div>
+  </section>
+
     <section id="Reference" class="main-section" >
       <header>Reference</header>
       <article>
         <ul>
-          <li>
+          <li><li>
             All the documentation in this page is taken from
             <a
               href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication"
               target="_blank"
               >MDN</a
             >
-          </li>
+          </li></li>
         </ul>
       </article>
     </section>
